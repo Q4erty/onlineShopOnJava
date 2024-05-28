@@ -3,6 +3,7 @@ package console;
 import database.child.UserDatabase;
 import model.Product;
 
+/**Тексты для консолья**/
 public class TextsForConsole {
     static UserDatabase db = new UserDatabase();
     public static void cuiCase1(){

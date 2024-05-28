@@ -17,6 +17,9 @@ public class UserDatabase extends Database {
         return getAll(Const.USER_TABLE);
     }
 
+    /**
+     * Найти кого-то по логину и паролью
+     **/
     public ResultSet findUser(User user) {
         String select = "SELECT * FROM " + Const.USER_TABLE +
                 " WHERE " + Const.USER_TABLE_LOGIN + "=? AND " + Const.USER_TABLE_PASSWORD + "=?";
@@ -30,6 +33,9 @@ public class UserDatabase extends Database {
         }
     }
 
+    /**
+     * Регистрация
+     **/
     public void signUpDatabase(User user) {
         String insert = "INSERT INTO " + Const.USER_TABLE + "(" + Const.USER_TABLE_NAME + "," +
                 Const.USER_TABLE_LOGIN + "," + Const.USER_TABLE_PASSWORD + ")" + "VALUES(?,?,?)";
@@ -44,6 +50,9 @@ public class UserDatabase extends Database {
         }
     }
 
+    /**
+     * Изменение баланса
+     **/
     public void updateBalance(Balance balance) {
         User userDatabase = new User();
         String newBalance = "UPDATE " + Const.USER_TABLE + " SET " + Const.USER_TABLE_BALANCE + "=? WHERE " + Const.USER_TABLE_ID + "=?";
@@ -58,6 +67,9 @@ public class UserDatabase extends Database {
         }
     }
 
+    /**
+     * Получить актуальный баланс
+     **/
     public int currentBalance() {
         User user = new User();
 
@@ -74,7 +86,10 @@ public class UserDatabase extends Database {
         }
     }
 
-    public void addToHistory(int id, String name){
+    /**
+     * Добавление в историю покупку
+     **/
+    public void addToHistory(int id, String name) {
         java.time.LocalDate currentDate = java.time.LocalDate.now();
         java.time.LocalTime currentTime = java.time.LocalTime.now();
 
@@ -90,7 +105,10 @@ public class UserDatabase extends Database {
         }
     }
 
-    public List<String> viewHistory(){
+    /**
+     * Посмотреть историю(для пользователя)
+     **/
+    public List<String> viewHistory() {
         List<String> history = new ArrayList<>();
         String select = "SELECT * FROM " + Const.HISTORY_TABLE + " WHERE " + Const.HISTORY_TABLE_ID + "=?";
         try {
@@ -107,7 +125,7 @@ public class UserDatabase extends Database {
         }
     }
 
-    public int getIdUser(){
+    public int getIdUser() {
         User user = new User();
         return user.getIdUser();
     }

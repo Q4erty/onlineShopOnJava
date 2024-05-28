@@ -18,6 +18,9 @@ public class UserFunctions {
     public UserFunctions() {
     }
 
+    /**
+     * Для входа
+     **/
     public User logIn(User user) {
         ConsoleSeller consoleSeller = new ConsoleSeller();
         ConsoleConsumer consoleConsumerUser = new ConsoleConsumer();
@@ -45,6 +48,9 @@ public class UserFunctions {
         }
     }
 
+    /**
+     * Для регистраций
+     **/
     public void signUp() {
         User userForSignUp = new User();
 
@@ -60,17 +66,23 @@ public class UserFunctions {
         userDatabase.signUpDatabase(userForSignUp);
     }
 
-    public void showHistory(){
+    /**
+     * Для просмотра историй пользователем
+     **/
+    public void showHistory() {
         List<String> histories = userDatabase.viewHistory();
-        for (String history : histories){
+        for (String history : histories) {
             System.out.println(history);
         }
     }
 
-    public void allHistory(){
+    /**
+     * История всез пользователей
+     **/
+    public void allHistory() {
         ResultSet resultSet = userDatabase.getAll(Const.HISTORY_TABLE);
         try {
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 System.out.print(resultSet.getInt(Const.HISTORY_TABLE_ID) + "-ID. ");
                 System.out.println(resultSet.getString(Const.HISTORY_TABLE_TEXT));
             }

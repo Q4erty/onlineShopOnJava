@@ -11,7 +11,9 @@ public class ConsoleSeller {
     UserFunctions userFunctions = new UserFunctions();
     ConsoleConsumer consoleConsumer = new ConsoleConsumer();
 
-
+    /**
+     * Основнон окно продовца
+     **/
     public void sellerMainWindow() {
         boolean loop = true;
         while (loop) {
@@ -44,11 +46,13 @@ public class ConsoleSeller {
         }
     }
 
+    /**Для добавления продукта**/
     public void addProductCUI() {
         productFunctions.addProduct();
         System.out.println("Продукт успешно добавлен");
     }
 
+    /**Редактирование продукта**/
     public void editProductCUI() {
         consoleConsumer.viewProducts();
         System.out.print("Напишите ID продукта: ");
@@ -60,7 +64,8 @@ public class ConsoleSeller {
         System.out.println("Продукт упешно изменен");
     }
 
-    public void deleteProduct(){
+    /**Удаление продукта**/
+    public void deleteProduct() {
         System.out.print("Напишите ID: ");
         productFunctions.deleteProduct(input.nextInt());
         System.out.println("Продукт успешно удален");

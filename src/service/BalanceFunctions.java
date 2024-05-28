@@ -11,6 +11,7 @@ public class BalanceFunctions {
     Scanner input = new Scanner(System.in);
 
 
+    /**Метод для пополнения баланса**/
     public void topUpBalance(int summa) {
         Balance balanceForUpdate = new Balance();
         try {

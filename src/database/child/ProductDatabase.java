@@ -8,14 +8,18 @@ import model.Product;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProductDatabase extends Database {
+    /**
+     * Для получчения всез продуктов
+     **/
     public ResultSet displayAllProduct() {
         return getAll(Const.PRODUCT_TABLE);
     }
 
+    /**
+     * Добавления продукта в базу данных
+     **/
     public void addProduct(Product product) {
         String insert = "INSERT INTO " + Const.PRODUCT_TABLE + "(" + Const.PRODUCT_TABLE_NAME + "," +
                 Const.PRODUCT_TABLE_DESCRIPTION + "," + Const.PRODUCT_TABLE_COST + "," + Const.PRODUCT_TABLE_LEFT +
@@ -32,25 +36,9 @@ public class ProductDatabase extends Database {
         }
     }
 
-    public int[] dataProduct(int ID) {
-        int costProduct = 0;
-        int leftProduct = 0;
-        String select = "SELECT * FROM " + Const.PRODUCT_TABLE + " WHERE " + Const.PRODUCT_TABLE_ID + "=?";
-        try {
-            PreparedStatement form = getDbConnection().prepareStatement(select);
-            form.setInt(1, ID);
-
-            ResultSet result = form.executeQuery();
-            while (result.next()) {
-                costProduct = result.getInt(Const.PRODUCT_TABLE_COST);
-                leftProduct = result.getInt(Const.PRODUCT_TABLE_LEFT);
-            }
-            return new int[]{costProduct, leftProduct};
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    /**
+     * Для обновления количества продукта после покупки
+     **/
     public void updateLostProduct(int ID, int quantity) {
         String newBalance = "UPDATE " + Const.PRODUCT_TABLE + " SET " + Const.PRODUCT_TABLE_LEFT + "=? WHERE " + Const.PRODUCT_TABLE_ID + "=?";
         try {
@@ -63,7 +51,10 @@ public class ProductDatabase extends Database {
         }
     }
 
-    public ResultSet lookForProductDB(String request) {
+    /**
+     * Найти продукт по имени
+     **/
+    public ResultSet findProduct(String request) {
         String select = "SELECT * FROM " + Const.PRODUCT_TABLE + " WHERE " + Const.PRODUCT_TABLE_NAME + " LIKE ?";
         try {
             PreparedStatement form = getDbConnection().prepareStatement(select);
@@ -75,6 +66,9 @@ public class ProductDatabase extends Database {
         }
     }
 
+    /**
+     * Найти продукт по id
+     **/
     public Product findProduct(int ID) {
         Product product = new Product();
         String select = "SELECT * FROM " + Const.PRODUCT_TABLE + " WHERE " + Const.PRODUCT_TABLE_ID + "=?";
@@ -97,14 +91,16 @@ public class ProductDatabase extends Database {
         }
     }
 
+    /**
+     * Покупака продукта
+     **/
     public void buyProduct(int ID) throws SQLException, ClassNotFoundException {
         UserDatabase userDatabase = new UserDatabase();
         Balance balanceForBuy = new Balance();
         Product product = findProduct(ID);
-        int[] array2 = dataProduct(ID);
 
         if (product.getCost() <= userDatabase.currentBalance()) {
-            if (array2[1] > 0) {
+            if (product.getLeft() > 0) {
                 balanceForBuy.setSumma(userDatabase.currentBalance() - product.getCost());
                 userDatabase.updateBalance(balanceForBuy);
                 updateLostProduct(ID, product.getLeft() - 1);
@@ -118,7 +114,10 @@ public class ProductDatabase extends Database {
         }
     }
 
-    public void editProductString(int id, String attributeName, String newValue){
+    /**
+     * Для редактирование продукта
+     **/
+    public void editProductString(int id, String attributeName, String newValue) {
         String updateQuery = "UPDATE product SET " + attributeName + " = ? WHERE idProduct = ?";
         try {
             PreparedStatement statement = getDbConnection().prepareStatement(updateQuery);
@@ -130,7 +129,10 @@ public class ProductDatabase extends Database {
         }
     }
 
-    public void deleteProduct(int id){
+    /**
+     * Удаление продукта из базы данных
+     **/
+    public void deleteProduct(int id) {
         String delete = "DELETE FROM product WHERE idProduct = ?";
         try {
             PreparedStatement statement = getDbConnection().prepareStatement(delete);

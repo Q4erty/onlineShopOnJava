@@ -14,6 +14,7 @@ public class ProductFunctions {
     ProductDatabase database = new ProductDatabase();
     Scanner input = new Scanner(System.in);
 
+    /**Автоматический заполнения данных с SQL в объект Product**/
     public Product autoAddElements(ResultSet resultSet){
         Product product = new Product();
         try {
@@ -28,6 +29,7 @@ public class ProductFunctions {
         return product;
     }
 
+    /**Вывод всех продуктов в виде массива**/
     public List<Product> productAsArray() {
         List<Product> productAsArray = new ArrayList<>();
         ResultSet resultSet = database.getAll(Const.PRODUCT_TABLE);
@@ -41,9 +43,10 @@ public class ProductFunctions {
         return productAsArray;
     }
 
+    /**Результат пойска продукта в виде массива**/
     public List<Product> lookForAsArray(String name) {
         List<Product> foundProducts = new ArrayList<>();
-        ResultSet resultSet = database.lookForProductDB(name);
+        ResultSet resultSet = database.findProduct(name);
         try {
             while (resultSet.next()) {
                 foundProducts.add(autoAddElements(resultSet));
@@ -54,6 +57,7 @@ public class ProductFunctions {
         return foundProducts;
     }
 
+    /**Очевидно для чего**/
     public void buyProduct(int id){
         try {
             database.buyProduct(id);
@@ -62,6 +66,7 @@ public class ProductFunctions {
         }
     }
 
+    /**Добавление продукта продавцом**/
     public void addProduct(){
         Product productForAdd = new Product();
 
@@ -80,6 +85,7 @@ public class ProductFunctions {
         database.addProduct(productForAdd);
     }
 
+    /**Для определения какую таблицу изменить, если таблица будеть расширяться нужно вручную добавлять**/
     public void editProduct(int id, int tableId, String thing){
         String tableName = null;
         switch (tableId){
