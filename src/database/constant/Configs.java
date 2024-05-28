@@ -1,4 +1,4 @@
-package Database;
+package database.constant;
 
 public class Configs {
     protected String dbHost = "127.0.0.1";

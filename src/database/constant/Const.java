@@ -1,4 +1,4 @@
-package Database;
+package database.constant;
 
 public class Const {
     public static final String PRODUCT_TABLE = "product";
@@ -16,4 +16,11 @@ public class Const {
     public static final String USER_TABLE_PASSWORD = "passwordUser";
     public static final String USER_TABLE_BALANCE = "balanceUser";
     public static final String USER_TABLE_SELLER = "seller";
+
+    public static final String HISTORY_TABLE = "history";
+    public static final String HISTORY_TABLE_ID = "id";
+    public static final String HISTORY_TABLE_TEXT = "text";
+
+    public static final String CUI_DETAIL_1 = "▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤" +
+            "▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤▤";
 }
